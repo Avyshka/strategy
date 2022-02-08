@@ -1,8 +1,9 @@
+using Aivagames.Strategy.Abstractions;
 using UnityEngine;
 
 namespace Aivagames.Strategy.Core
 {
-    public class MainBuilding : MonoBehaviour
+    public class MainBuilding : MonoBehaviour, IUnitProducer
     {
         [SerializeField] private GameObject _unitPrefab;
         [SerializeField] private Transform _unitsParent;

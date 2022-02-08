@@ -1,5 +1,5 @@
 using System.Linq;
-using Aivagames.Strategy.Core;
+using Aivagames.Strategy.Abstractions;
 using UnityEngine;
 
 namespace Aivagames.Strategy.UserControlSystem
@@ -22,13 +22,9 @@ namespace Aivagames.Strategy.UserControlSystem
             }
 
             var mainBuilding = hits
-                .Select(hit => hit.collider.GetComponentInParent<MainBuilding>())
+                .Select(hit => hit.collider.GetComponentInParent<IUnitProducer>())
                 .FirstOrDefault(c => c != null);
-            if (mainBuilding == default)
-            {
-                return;
-            }
-            mainBuilding.ProduceUnit();
+            mainBuilding?.ProduceUnit();
         }
     }
 }

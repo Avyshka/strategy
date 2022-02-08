@@ -1,7 +1,9 @@
 {
     "name": "Core",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "Abstractions"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

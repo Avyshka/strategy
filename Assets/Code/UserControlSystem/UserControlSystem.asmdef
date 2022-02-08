@@ -2,6 +2,7 @@
     "name": "UserControlSystem",
     "rootNamespace": "",
     "references": [
+        "Abstractions",
         "Core"
     ],
     "includePlatforms": [],
