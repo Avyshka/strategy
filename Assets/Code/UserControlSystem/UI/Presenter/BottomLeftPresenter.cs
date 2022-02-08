@@ -1,12 +1,12 @@
-﻿using System;
-using Aivagames.Strategy.Abstractions;
+﻿using Aivagames.Strategy.Abstractions;
+using Aivagames.Strategy.UserControlSystem.UI.Model;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Aivagames.Strategy.UserControlSystem
+namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 {
-    public class BottomLeftUI : MonoBehaviour
+    public class BottomLeftPresenter : MonoBehaviour
     {
         [SerializeField] private Image _selectedImage;
         [SerializeField] private Slider _healthSlider;
@@ -27,17 +27,19 @@ namespace Aivagames.Strategy.UserControlSystem
             _healthSlider.gameObject.SetActive(selected != null);
             _text.enabled = selected != null;
 
-            if (selected != null)
+            if (selected == null)
             {
-                _selectedImage.sprite = selected.Icon;
-                _text.text = $"{selected.Health} / {selected.MaxHealth}";
-                _healthSlider.minValue = 0;
-                _healthSlider.maxValue = selected.MaxHealth;
-                _healthSlider.value = selected.Health;
-                var color = Color.Lerp(Color.red, Color.green, selected.Health / selected.MaxHealth);
-                _sliderBackground.color = color * 0.5f;
-                _sliderFill.color = color;
+                return;
             }
+            
+            _selectedImage.sprite = selected.Icon;
+            _text.text = $"{selected.Health} / {selected.MaxHealth}";
+            _healthSlider.minValue = 0;
+            _healthSlider.maxValue = selected.MaxHealth;
+            _healthSlider.value = selected.Health;
+            var color = Color.Lerp(Color.red, Color.green, selected.Health / selected.MaxHealth);
+            _sliderBackground.color = color * 0.5f;
+            _sliderFill.color = color;
         }
     }
 }

@@ -1,10 +1,11 @@
 using System.Linq;
 using Aivagames.Strategy.Abstractions;
+using Aivagames.Strategy.UserControlSystem.UI.Model;
 using UnityEngine;
 
-namespace Aivagames.Strategy.UserControlSystem
+namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 {
-    public class MouseInteractionsHandler : MonoBehaviour
+    public class MouseInteractionsPresenter : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
         [SerializeField] private SelectableValue _selectedObject;
