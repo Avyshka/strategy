@@ -3,11 +3,19 @@ using UnityEngine;
 
 namespace Aivagames.Strategy.Core
 {
-    public class MainBuilding : MonoBehaviour, IUnitProducer
+    public class MainBuilding : MonoBehaviour, IUnitProducer, ISelectable
     {
         [SerializeField] private GameObject _unitPrefab;
         [SerializeField] private Transform _unitsParent;
+        [SerializeField] private float _maxHealth = 1000;
+        [SerializeField] private Sprite _icon;
 
+        private float _health = 1000;
+
+        public float Health => _health;
+        public float MaxHealth => _maxHealth;
+        public Sprite Icon => _icon;
+        
         public void ProduceUnit()
         {
             Instantiate(

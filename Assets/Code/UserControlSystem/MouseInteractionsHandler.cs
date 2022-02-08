@@ -7,6 +7,7 @@ namespace Aivagames.Strategy.UserControlSystem
     public class MouseInteractionsHandler : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
+        [SerializeField] private SelectableValue _selectedObject;
 
         private void Update()
         {
@@ -21,10 +22,10 @@ namespace Aivagames.Strategy.UserControlSystem
                 return;
             }
 
-            var mainBuilding = hits
-                .Select(hit => hit.collider.GetComponentInParent<IUnitProducer>())
+            var selectable = hits
+                .Select(hit => hit.collider.GetComponentInParent<ISelectable>())
                 .FirstOrDefault(c => c != null);
-            mainBuilding?.ProduceUnit();
+            _selectedObject?.SetValue(selectable);
         }
     }
 }
