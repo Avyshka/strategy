@@ -8,7 +8,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
     public class MouseInteractionsPresenter : MonoBehaviour
     {
         [SerializeField] private Camera _camera;
-        [SerializeField] private SelectableValue _selectedObject;
+        [SerializeField] private SelectableValue _selectableValue;
 
         private void Update()
         {
@@ -26,7 +26,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
             var selectable = hits
                 .Select(hit => hit.collider.GetComponentInParent<ISelectable>())
                 .FirstOrDefault(c => c != null);
-            _selectedObject?.SetValue(selectable);
+            _selectableValue?.SetValue(selectable);
         }
     }
 }
