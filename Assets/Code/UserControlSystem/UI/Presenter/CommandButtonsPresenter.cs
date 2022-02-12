@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Aivagames.Strategy.Abstractions;
 using Aivagames.Strategy.UserControlSystem.UI.Model;
 using Aivagames.Strategy.UserControlSystem.UI.View;
+using Aivagames.Strategy.Utils.AssetsInjector;
 using UnityEngine;
 
 namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
@@ -11,6 +12,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
     {
         [SerializeField] private SelectableValue _selectableValue;
         [SerializeField] private CommandButtonsView _view;
+        [SerializeField] private AssetsContext _context;
 
         private ISelectable _currentSelectable;
 
@@ -48,7 +50,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
                     $"{nameof(CommandButtonsPresenter)}.{nameof(OnButtonClick)}: Unknown type of commands executor: {commandExecutor.GetType().FullName}!");
             }
 
-            unitProducer.ExecuteCommand(new ProduceUnitCommand());
+            unitProducer.ExecuteCommand(_context.Inject(new ProduceUnitCommand()));
         }
     }
 }

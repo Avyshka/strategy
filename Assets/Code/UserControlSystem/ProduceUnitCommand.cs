@@ -1,11 +1,12 @@
 ﻿using Aivagames.Strategy.Abstractions;
+using Aivagames.Strategy.Utils.AssetsInjector;
 using UnityEngine;
 
 namespace Aivagames.Strategy.UserControlSystem
 {
     public class ProduceUnitCommand : IProduceUnitCommand
     {
-        [SerializeField] private GameObject _unitPrefab;
+        [InjectAsset("Chomper")] private GameObject _unitPrefab;
         public GameObject UnitPrefab => _unitPrefab;
     }
 }
