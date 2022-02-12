@@ -44,13 +44,38 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
         private void OnButtonClick(ICommandExecutor commandExecutor)
         {
             var unitProducer = commandExecutor as CommandExecutorBase<IProduceUnitCommand>;
-            if (unitProducer == null)
+            if (unitProducer != null)
             {
-                throw new ApplicationException(
-                    $"{nameof(CommandButtonsPresenter)}.{nameof(OnButtonClick)}: Unknown type of commands executor: {commandExecutor.GetType().FullName}!");
+                unitProducer.ExecuteCommand(_context.Inject(new ProduceUnitCommand()));
+                return;
             }
-
-            unitProducer.ExecuteCommand(_context.Inject(new ProduceUnitCommand()));
+            var mover = commandExecutor as CommandExecutorBase<IMoveCommand>;
+            if (mover != null)
+            {
+                mover.ExecuteCommand(new MoveCommand());
+                return;
+            }
+            var stopper = commandExecutor as CommandExecutorBase<IStopCommand>;
+            if (stopper != null)
+            {
+                stopper.ExecuteCommand(new StopCommand());
+                return;
+            }
+            var attacker = commandExecutor as CommandExecutorBase<IAttackCommand>;
+            if (attacker != null)
+            {
+                attacker.ExecuteCommand(new AttackCommand());
+                return;
+            }
+            var patroller = commandExecutor as CommandExecutorBase<IPatrolCommand>;
+            if (patroller != null)
+            {
+                patroller.ExecuteCommand(new PatrolCommand());
+                return;
+            }
+            throw new ApplicationException(
+                $"{nameof(CommandButtonsPresenter)}.{nameof(OnButtonClick)}: Unknown type of commands executor: {commandExecutor.GetType().FullName}!");
+            
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Aivagames.Strategy.Utils.AssetsInjector
                     continue;
                 }
 
-                var objectToInject = context.GetObjectType(fieldInfo.FieldType, injectAssetAttribute.Assetname);
+                var objectToInject = context.GetObjectType(fieldInfo.FieldType, injectAssetAttribute.AssetName);
                 fieldInfo.SetValue(target, objectToInject);
             }
 

@@ -10,7 +10,8 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 
         private const float UnSelectedOutlineWidth = 0f;
         private const float SelectedOutlineWidth = 5f;
-        
+        private readonly Color _selectedOutlineColor = new Color(0.65f, 1f, 0.75f, 0.55f);
+
         private ISelectable _currentSelectable;
 
         private void Start()
@@ -41,6 +42,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
             if (component != null && component.TryGetComponent<Outline>(out var outline))
             {
                 outline.OutlineWidth = width;
+                outline.OutlineColor = _selectedOutlineColor;
             }
         }
     }

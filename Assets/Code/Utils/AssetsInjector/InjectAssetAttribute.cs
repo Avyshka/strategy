@@ -5,11 +5,11 @@ namespace Aivagames.Strategy.Utils.AssetsInjector
     [AttributeUsage(AttributeTargets.Field)]
     public class InjectAssetAttribute : Attribute
     {
-        public readonly string Assetname;
+        public readonly string AssetName;
 
-        public InjectAssetAttribute(string assetname = null)
+        public InjectAssetAttribute(string assetName = null)
         {
-            Assetname = assetname;
+            AssetName = assetName;
         }
     }
 }
