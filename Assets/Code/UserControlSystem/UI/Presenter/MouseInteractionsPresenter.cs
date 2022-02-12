@@ -2,6 +2,7 @@ using System.Linq;
 using Aivagames.Strategy.Abstractions;
 using Aivagames.Strategy.UserControlSystem.UI.Model;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 {
@@ -9,10 +10,11 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
     {
         [SerializeField] private Camera _camera;
         [SerializeField] private SelectableValue _selectableValue;
-
+        [SerializeField] private EventSystem _eventSystem;
+        
         private void Update()
         {
-            if (!Input.GetMouseButtonUp(0))
+            if (!Input.GetMouseButtonUp(0) || _eventSystem.IsPointerOverGameObject())
             {
                 return;
             }
