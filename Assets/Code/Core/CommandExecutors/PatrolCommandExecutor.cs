@@ -6,7 +6,7 @@ namespace Aivagames.Strategy.Abstractions
     {
         public override void ExecuteSpecificCommand(IPatrolCommand command)
         {
-            Debug.Log($"{name} patrol");
+            Debug.Log($"{name} patrolling from {command.From} to {command.To}");
         }
     }
 }

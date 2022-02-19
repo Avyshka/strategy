@@ -2254,6 +2254,7 @@ MonoBehaviour:
   _selectableValue: {fileID: 11400000, guid: 36b3b5d8f3248d54cae39274f7ba24e5, type: 2}
   _eventSystem: {fileID: 766312219}
   _groundClicksRMB: {fileID: 11400000, guid: ae179c464aab3ba49841cd7170c6e1b5, type: 2}
+  _attackablesRMB: {fileID: 11400000, guid: 4d17cae3ea1d2bb41b6999f5ca535099, type: 2}
   _groundTransform: {fileID: 1516068762}
 --- !u!4 &1159824325
 Transform:
@@ -3477,6 +3478,7 @@ MonoBehaviour:
   _unitsParent: {fileID: 746892556}
   _maxHealth: 1000
   _icon: {fileID: 21300000, guid: f9e2947dc7f2e224498e18a749b6d540, type: 3}
+  _pivotPoint: {fileID: 1530666646}
 --- !u!114 &1530666649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4552,7 +4554,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Hold
+  m_text: 'Patrol
 
 '
   m_isRightToLeft: 0
@@ -4858,7 +4860,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _legacyContext: {fileID: 11400000, guid: 7d00cda9def1052409ae3134bc500b2f, type: 2}
+  _selectableValue: {fileID: 11400000, guid: 36b3b5d8f3248d54cae39274f7ba24e5, type: 2}
   _groundClicksRMB: {fileID: 11400000, guid: ae179c464aab3ba49841cd7170c6e1b5, type: 2}
+  _attackablesRMB: {fileID: 11400000, guid: 4d17cae3ea1d2bb41b6999f5ca535099, type: 2}
 --- !u!1001 &2051079670
 PrefabInstance:
   m_ObjectHideFlags: 0

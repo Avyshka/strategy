@@ -65,6 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 50
   _icon: {fileID: 21300000, guid: 79b9ac79ccc34b44e9cf38ae4f1501d7, type: 3}
+  _pivotPoint: {fileID: 2205033318829096963}
 --- !u!114 &2205033317757293585
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 
         private void Start()
         {
-            _selectableValue.OnSelected += OnSelect;
+            _selectableValue.OnNewValue += OnSelect;
             OnSelect(_selectableValue.CurrentValue);
         }
 

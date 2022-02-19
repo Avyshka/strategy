@@ -6,7 +6,7 @@ namespace Aivagames.Strategy.Abstractions
     {
         public override void ExecuteSpecificCommand(IAttackCommand command)
         {
-            Debug.Log($"{name} attack");
+            Debug.Log($"{name} attacking {command.Target} with {command.Target.Health}/{command.Target.MaxHealth} hps!");
         }
     }
 }
