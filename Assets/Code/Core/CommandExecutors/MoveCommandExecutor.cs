@@ -6,7 +6,7 @@ namespace Aivagames.Strategy.Abstractions
     {
         public override void ExecuteSpecificCommand(IMoveCommand command)
         {
-            Debug.Log($"{name} move");
+            Debug.Log($"{name} is moving to {command.Target}!");
         }
     }
 }
