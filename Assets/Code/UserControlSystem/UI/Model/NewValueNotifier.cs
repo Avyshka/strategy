@@ -1,17 +1,10 @@
-﻿using System;
-using Code.Utils;
+﻿using Code.Utils;
 
 namespace Aivagames.Strategy.UserControlSystem.UI.Model
 {
-    public class NewValueNotifier<TAwaited> : IAwaiter<TAwaited>
+    public class NewValueNotifier<TAwaited> : AwaiterBase<TAwaited>
     {
         private readonly ScriptableObjectValueBase<TAwaited> _scriptableObjectValueBase;
-        private TAwaited _result;
-        private Action _continuation;
-        private bool _isCompleted;
-
-        public bool IsCompleted => _isCompleted;
-        public TAwaited GetResult() => _result;
 
         public NewValueNotifier(ScriptableObjectValueBase<TAwaited> scriptableObjectValueBase)
         {
@@ -22,21 +15,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Model
         private void OnNewValue(TAwaited obj)
         {
             _scriptableObjectValueBase.OnNewValue -= OnNewValue;
-            _result = obj;
-            _isCompleted = true;
-            _continuation?.Invoke();
-        }
-
-        public void OnCompleted(Action continuation)
-        {
-            if (_isCompleted)
-            {
-                continuation?.Invoke();
-            }
-            else
-            {
-                _continuation = continuation;
-            }
+            OnWaitFinish(obj);
         }
     }
 }
