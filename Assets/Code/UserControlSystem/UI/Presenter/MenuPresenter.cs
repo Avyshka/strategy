@@ -13,7 +13,11 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
         {
             _backButton
                 .OnClickAsObservable()
-                .Subscribe(_ => gameObject.SetActive(false));
+                .Subscribe(_ =>
+                {
+                    gameObject.SetActive(false);
+                    Time.timeScale = 1f;
+                });
 
             _exitButton
                 .OnClickAsObservable()

@@ -25,7 +25,11 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 
             _menuButton
                 .OnClickAsObservable()
-                .Subscribe(_ => _menuGameObject.SetActive(true));
+                .Subscribe(_ =>
+                {
+                    _menuGameObject.SetActive(true);
+                    Time.timeScale = 0f;
+                });
         }
     }
 }
