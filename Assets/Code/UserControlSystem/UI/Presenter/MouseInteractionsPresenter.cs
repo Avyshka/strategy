@@ -1,15 +1,18 @@
 using System.Linq;
 using Aivagames.Strategy.Abstractions;
 using Aivagames.Strategy.UserControlSystem.UI.Model;
+using Code.Utils;
+using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 {
     public class MouseInteractionsPresenter : MonoBehaviour
     {
-        [SerializeField] private Camera _camera;
         [SerializeField] private SelectableValue _selectableValue;
+        [SerializeField] private Camera _camera;
         [SerializeField] private EventSystem _eventSystem;
 
         [SerializeField] private Vector3Value _groundClicksRMB;
@@ -18,33 +21,38 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 
         private Plane _groundPlane;
 
-        private void Start()
+        [Inject]
+        private void Init()
         {
             _groundPlane = new Plane(_groundTransform.up, 0);
-        }
 
-        private void Update()
-        {
-            if (!Input.GetMouseButtonUp(0) && !Input.GetMouseButtonUp(1))
-            {
-                return;
-            }
+            var nonBlockedByUiFramesStream = Observable
+                .EveryUpdate()
+                .Where(_ => !_eventSystem.IsPointerOverGameObject());
 
-            if (_eventSystem.IsPointerOverGameObject())
-            {
-                return;
-            }
+            var leftClicksStream = nonBlockedByUiFramesStream
+                .Where(_ => Input.GetMouseButtonUp(0));
+            var rightClicksStream = nonBlockedByUiFramesStream
+                .Where(_ => Input.GetMouseButtonUp(1));
 
-            var ray = _camera.ScreenPointToRay(Input.mousePosition);
-            var hits = Physics.RaycastAll(ray);
-            if (Input.GetMouseButtonUp(0))
+            var lmbRays = leftClicksStream
+                .Select(_ => _camera.ScreenPointToRay(Input.mousePosition));
+            var rmbRays = rightClicksStream
+                .Select(_ => _camera.ScreenPointToRay(Input.mousePosition));
+
+            var lmbHitsStream = lmbRays
+                .Select(ray => Physics.RaycastAll(ray));
+            var rmbHitsStream = rmbRays
+                .Select(ray => (ray, Physics.RaycastAll(ray)));
+
+            lmbHitsStream.Subscribe(hits =>
             {
                 if (WeHit<ISelectable>(hits, out var selectable))
                 {
                     _selectableValue.SetValue(selectable);
                 }
-            }
-            else
+            });
+            rmbHitsStream.Subscribe((ray, hits) =>
             {
                 if (WeHit<IAttackable>(hits, out var attackable))
                 {
@@ -54,7 +62,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
                 {
                     _groundClicksRMB.SetValue(ray.origin + ray.direction * enter);
                 }
-            }
+            });
         }
 
         private bool WeHit<T>(RaycastHit[] hits, out T result) where T : class

@@ -1,8 +1,10 @@
-﻿using Aivagames.Strategy.Abstractions;
-using Aivagames.Strategy.UserControlSystem.UI.Model;
+﻿using System;
+using Aivagames.Strategy.Abstractions;
 using TMPro;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 {
@@ -13,12 +15,11 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
         [SerializeField] private TMP_Text _text;
         [SerializeField] private Image _sliderBackground;
         [SerializeField] private Image _sliderFill;
-        [SerializeField] private SelectableValue _selectableValue;
+        [Inject] private IObservable<ISelectable> _selectableValue;
 
         private void Start()
         {
-            _selectableValue.OnNewValue += OnSelect;
-            OnSelect(_selectableValue.CurrentValue);
+            _selectableValue.Subscribe(OnSelect);
         }
 
         private void OnSelect(ISelectable selected)
@@ -31,7 +32,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
             {
                 return;
             }
-            
+
             _selectedImage.sprite = selected.Icon;
             _text.text = $"{selected.Health} / {selected.MaxHealth}";
             _healthSlider.minValue = 0;

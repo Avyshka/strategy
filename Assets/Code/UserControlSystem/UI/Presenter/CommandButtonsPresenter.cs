@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Aivagames.Strategy.Abstractions;
 using Aivagames.Strategy.UserControlSystem.UI.Model;
 using Aivagames.Strategy.UserControlSystem.UI.View;
+using UniRx;
 using UnityEngine;
 using Zenject;
 
@@ -10,9 +11,9 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 {
     public class CommandButtonsPresenter : MonoBehaviour
     {
-        [SerializeField] private SelectableValue _selectableValue;
         [SerializeField] private CommandButtonsView _view;
 
+        [Inject] private IObservable<ISelectable> _selectableValue;
         [Inject] private CommandButtonsModel _model;
 
         private ISelectable _currentSelectable;
@@ -24,8 +25,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
             _model.OnCommandCancel += _view.UnblockAllInteractions;
             _model.OnCommandAccepted += _view.BlockInteractions;
 
-            _selectableValue.OnNewValue += OnSelected;
-            OnSelected(_selectableValue.CurrentValue);
+            _selectableValue.Subscribe(OnSelected);
         }
 
         private void OnSelected(ISelectable selectable)
