@@ -3,9 +3,8 @@ using UnityEngine;
 
 namespace Aivagames.Strategy.Core
 {
-    public class MainBuilding : CommandExecutorBase<IProduceUnitCommand>, ISelectable, IAttackable
+    public class MainBuilding : MonoBehaviour, ISelectable, IAttackable
     {
-        [SerializeField] private Transform _unitsParent;
         [SerializeField] private float _maxHealth = 1000;
         [SerializeField] private Sprite _icon;
         [SerializeField] private Transform _pivotPoint;
@@ -16,15 +15,5 @@ namespace Aivagames.Strategy.Core
         public float MaxHealth => _maxHealth;
         public Transform PivotPoint => _pivotPoint;
         public Sprite Icon => _icon;
-
-        public override void ExecuteSpecificCommand(IProduceUnitCommand command)
-        {
-            Instantiate(
-                command.UnitPrefab,
-                new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
-                Quaternion.identity,
-                _unitsParent
-            );
-        }
     }
 }

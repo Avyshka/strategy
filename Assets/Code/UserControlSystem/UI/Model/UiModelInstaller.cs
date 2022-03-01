@@ -1,5 +1,7 @@
 ﻿using Aivagames.Strategy.Abstractions;
 using Aivagames.Strategy.UserControlSystem.UI.Model.CommandCreators;
+using Code.UserControlSystem.UI.Model;
+using UnityEngine;
 using Zenject;
 
 namespace Aivagames.Strategy.UserControlSystem.UI.Model
@@ -30,6 +32,10 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Model
                 .AsTransient();
 
             Container.Bind<CommandButtonsModel>().AsTransient();
+            Container.Bind<BottomCenterModel>().AsTransient();
+
+            Container.Bind<float>().WithId("Chomper").FromInstance(5f);
+            Container.Bind<string>().WithId("Chomper").FromInstance("Chomper");
         }
     }
 }
