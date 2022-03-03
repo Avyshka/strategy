@@ -9,7 +9,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.View
 {
     public class CommandButtonsView : MonoBehaviour
     {
-        public Action<ICommandExecutor> OnClick;
+        public Action<ICommandExecutor, ICommandsQueue> OnClick;
 
         [SerializeField] private GameObject _moveButton;
         [SerializeField] private GameObject _stopButton;
@@ -23,11 +23,11 @@ namespace Aivagames.Strategy.UserControlSystem.UI.View
         {
             _buttonsByExecutorType = new Dictionary<Type, GameObject>
             {
-                {typeof(CommandExecutorBase<IMoveCommand>), _moveButton},
-                {typeof(CommandExecutorBase<IStopCommand>), _stopButton},
-                {typeof(CommandExecutorBase<IAttackCommand>), _attackButton},
-                {typeof(CommandExecutorBase<IPatrolCommand>), _patrolButton},
-                {typeof(CommandExecutorBase<IProduceUnitCommand>), _produceUnitButton}
+                {typeof(ICommandExecutor<IMoveCommand>), _moveButton},
+                {typeof(ICommandExecutor<IStopCommand>), _stopButton},
+                {typeof(ICommandExecutor<IAttackCommand>), _attackButton},
+                {typeof(ICommandExecutor<IPatrolCommand>), _patrolButton},
+                {typeof(ICommandExecutor<IProduceUnitCommand>), _produceUnitButton}
             };
         }
 
@@ -49,7 +49,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.View
             _produceUnitButton.GetComponent<Selectable>().interactable = value;
         }
 
-        public void MakeLayout(IEnumerable<ICommandExecutor> commandsExecutors)
+        public void MakeLayout(IEnumerable<ICommandExecutor> commandsExecutors, ICommandsQueue queue)
         {
             foreach (var currentExecutor in commandsExecutors)
             {
@@ -58,7 +58,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.View
                     .Value;
                 buttonGameObject.SetActive(true);
                 var button = buttonGameObject.GetComponent<Button>();
-                button.onClick.AddListener(() => OnClick?.Invoke(currentExecutor));
+                button.onClick.AddListener(() => OnClick?.Invoke(currentExecutor, queue));
             }
         }
 

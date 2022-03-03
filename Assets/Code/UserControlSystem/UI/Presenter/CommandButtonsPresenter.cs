@@ -53,7 +53,8 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
             commandExecutors.AddRange((selectable as Component)
                                       ?.GetComponentsInParent<ICommandExecutor>()
                                       ?? Array.Empty<ICommandExecutor>());
-            _view.MakeLayout(commandExecutors);
+            var queue = (selectable as Component)?.GetComponentInParent<ICommandsQueue>();
+            _view.MakeLayout(commandExecutors, queue);
         }
     }
 }

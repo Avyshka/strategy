@@ -1,11 +1,15 @@
-﻿using Aivagames.Strategy.Core;
+﻿using System.Threading.Tasks;
+using Aivagames.Strategy.Core;
 using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Aivagames.Strategy.Abstractions
 {
     public class ProduceUnitCommandExecutor : CommandExecutorBase<IProduceUnitCommand>, IUnitProducer
     {
+        [Inject] private DiContainer _diContainer;
+
         public IReadOnlyReactiveCollection<IUnitProductionTask> Queue => _queue;
 
         [SerializeField] private Transform _unitParent;
@@ -25,7 +29,7 @@ namespace Aivagames.Strategy.Abstractions
             if (innerTask.TimeLeft >= innerTask.ProductionTime)
             {
                 RemoveTaskAtIndex(0);
-                Instantiate(
+                _diContainer.InstantiatePrefab(
                     innerTask.UnitPrefab,
                     new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
                     Quaternion.identity,
@@ -46,7 +50,7 @@ namespace Aivagames.Strategy.Abstractions
             _queue.RemoveAt(_queue.Count - 1);
         }
 
-        public override void ExecuteSpecificCommand(IProduceUnitCommand command)
+        public override async Task ExecuteSpecificCommand(IProduceUnitCommand command)
         {
             _queue.Add(new UnitProductionTask(
                 command.ProductionTime,
