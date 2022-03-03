@@ -18,10 +18,12 @@ GameObject:
   - component: {fileID: 1054297036616013702}
   - component: {fileID: 492028483033329397}
   - component: {fileID: 1974435914311598717}
-  - component: {fileID: 6748801828671303873}
   - component: {fileID: 5084145482746582776}
   - component: {fileID: 2722390327219734952}
   - component: {fileID: 6042431998343023512}
+  - component: {fileID: 1218780265220292503}
+  - component: {fileID: 7770588635806803208}
+  - component: {fileID: 565494637187161687}
   m_Layer: 0
   m_Name: Chomper
   m_TagString: Untagged
@@ -37,7 +39,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2205033317757293586}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.81, y: -0.01, z: 2.15}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2205033318829096963}
@@ -102,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a182441601413989bd17c812082940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stop: {fileID: 6748801828671303873}
+  _stop: {fileID: 7770588635806803208}
   _animator: {fileID: 1974435914311598717}
   _stopCommandExecutor: {fileID: 3845697559130228818}
 --- !u!114 &3845697559130228818
@@ -182,19 +184,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &6748801828671303873
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2205033317757293586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e27e91f208164aaaa73b3141a93a75e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _agent: {fileID: 492028483033329397}
 --- !u!114 &5084145482746582776
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -237,6 +226,50 @@ MonoBehaviour:
   _installerPrefabs: []
   _autoRun: 1
   _kernel: {fileID: 0}
+--- !u!114 &1218780265220292503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2205033317757293586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb8410ff41c4ba9af624263adaef94e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7770588635806803208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2205033317757293586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27e91f208164aaaa73b3141a93a75e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _agent: {fileID: 492028483033329397}
+  _collisionDetector: {fileID: 1218780265220292503}
+  _throttleFrames: 60
+  _continuityThreshold: 10
+--- !u!54 &565494637187161687
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2205033317757293586}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &2205033318828972673
 PrefabInstance:
   m_ObjectHideFlags: 0
