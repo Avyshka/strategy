@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Aivagames.Strategy.Core;
+using Aivagames.Strategy.UserControlSystem;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -29,12 +30,15 @@ namespace Aivagames.Strategy.Abstractions
             if (innerTask.TimeLeft >= innerTask.ProductionTime)
             {
                 RemoveTaskAtIndex(0);
-                _diContainer.InstantiatePrefab(
+                var instance = _diContainer.InstantiatePrefab(
                     innerTask.UnitPrefab,
-                    new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
+                    transform.position,
                     Quaternion.identity,
                     _unitParent
                 );
+                var queue = instance.GetComponent<ICommandsQueue>();
+                var mainBuilding = GetComponent<MainBuilding>();
+                queue.EnqueueCommand(new MoveCommand(mainBuilding.RallyPoint));
             }
         }
 

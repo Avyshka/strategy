@@ -30,6 +30,10 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Model
                 .Bind<CommandCreatorBase<IPatrolCommand>>()
                 .To<PatrolCommandCreator>()
                 .AsTransient();
+            Container
+                .Bind<CommandCreatorBase<ISetRallyPointCommand>>()
+                .To<SetRallyPointCommandCreator>()
+                .AsTransient();
 
             Container.Bind<CommandButtonsModel>().AsTransient();
             Container.Bind<BottomCenterModel>().AsTransient();

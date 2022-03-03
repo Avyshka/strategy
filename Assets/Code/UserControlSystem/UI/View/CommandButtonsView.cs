@@ -16,6 +16,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.View
         [SerializeField] private GameObject _attackButton;
         [SerializeField] private GameObject _patrolButton;
         [SerializeField] private GameObject _produceUnitButton;
+        [SerializeField] private GameObject _rallyPointButton;
 
         private Dictionary<Type, GameObject> _buttonsByExecutorType;
 
@@ -27,7 +28,8 @@ namespace Aivagames.Strategy.UserControlSystem.UI.View
                 {typeof(ICommandExecutor<IStopCommand>), _stopButton},
                 {typeof(ICommandExecutor<IAttackCommand>), _attackButton},
                 {typeof(ICommandExecutor<IPatrolCommand>), _patrolButton},
-                {typeof(ICommandExecutor<IProduceUnitCommand>), _produceUnitButton}
+                {typeof(ICommandExecutor<IProduceUnitCommand>), _produceUnitButton},
+                {typeof(ICommandExecutor<ISetRallyPointCommand>), _rallyPointButton}
             };
         }
 
@@ -47,6 +49,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.View
             _stopButton.GetComponent<Selectable>().interactable = value;
             _patrolButton.GetComponent<Selectable>().interactable = value;
             _produceUnitButton.GetComponent<Selectable>().interactable = value;
+            _rallyPointButton.GetComponent<Selectable>().interactable = value;
         }
 
         public void MakeLayout(IEnumerable<ICommandExecutor> commandsExecutors, ICommandsQueue queue)
