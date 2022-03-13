@@ -9,6 +9,8 @@ namespace Code.Core
         [Inject] private CommandExecutorBase<IProduceUnitCommand> _produceUnitCommandExecutor;
         [Inject] private CommandExecutorBase<ISetRallyPointCommand> _setRallyPointCommandExecutor;
 
+        public ICommand CurrentCommand => default;
+
         public async void EnqueueCommand(object command)
         {
             await _produceUnitCommandExecutor.TryExecuteCommand(command);
