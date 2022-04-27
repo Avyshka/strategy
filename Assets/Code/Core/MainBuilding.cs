@@ -3,9 +3,8 @@ using UnityEngine;
 
 namespace Aivagames.Strategy.Core
 {
-    public class MainBuilding : MonoBehaviour, IUnitProducer, ISelectable
+    public class MainBuilding : CommandExecutorBase<IProduceUnitCommand>, ISelectable
     {
-        [SerializeField] private GameObject _unitPrefab;
         [SerializeField] private Transform _unitsParent;
         [SerializeField] private float _maxHealth = 1000;
         [SerializeField] private Sprite _icon;
@@ -16,10 +15,10 @@ namespace Aivagames.Strategy.Core
         public float MaxHealth => _maxHealth;
         public Sprite Icon => _icon;
         
-        public void ProduceUnit()
+        public override void ExecuteSpecificCommand(IProduceUnitCommand command)
         {
             Instantiate(
-                _unitPrefab,
+                command.UnitPrefab,
                 new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10)),
                 Quaternion.identity,
                 _unitsParent
