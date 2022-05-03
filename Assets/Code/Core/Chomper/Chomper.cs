@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Aivagames.Strategy.Core
 {
-    public class Chomper : MonoBehaviour, ISelectable, IAttackable
+    public class Chomper : MonoBehaviour, ISelectable, IAttackable, IUnit
     {
         [SerializeField] private float _maxHealth = 50;
         [SerializeField] private Sprite _icon;

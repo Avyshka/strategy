@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using System.Threading.Tasks;
 
 namespace Aivagames.Strategy.Abstractions
 {
@@ -6,7 +7,7 @@ namespace Aivagames.Strategy.Abstractions
     {
         public CancellationTokenSource CancellationTokenSource { get; set; }
 
-        public override void ExecuteSpecificCommand(IStopCommand command)
+        public override async Task ExecuteSpecificCommand(IStopCommand command)
         {
             CancellationTokenSource?.Cancel();
         }
