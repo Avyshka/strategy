@@ -14,7 +14,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.View
         [SerializeField] private GameObject _moveButton;
         [SerializeField] private GameObject _stopButton;
         [SerializeField] private GameObject _attackButton;
-        [SerializeField] private GameObject _holdButton;
+        [SerializeField] private GameObject _patrolButton;
         [SerializeField] private GameObject _produceUnitButton;
 
         private Dictionary<Type, GameObject> _buttonsByExecutorType;
@@ -26,9 +26,27 @@ namespace Aivagames.Strategy.UserControlSystem.UI.View
                 {typeof(CommandExecutorBase<IMoveCommand>), _moveButton},
                 {typeof(CommandExecutorBase<IStopCommand>), _stopButton},
                 {typeof(CommandExecutorBase<IAttackCommand>), _attackButton},
-                {typeof(CommandExecutorBase<IPatrolCommand>), _holdButton},
+                {typeof(CommandExecutorBase<IPatrolCommand>), _patrolButton},
                 {typeof(CommandExecutorBase<IProduceUnitCommand>), _produceUnitButton}
             };
+        }
+
+        public void BlockInteractions(ICommandExecutor commandExecutor)
+        {
+            UnblockAllInteractions();
+            GetButtonGameObjectByType(commandExecutor.GetType())
+                .GetComponent<Selectable>().interactable = false;
+        }
+
+        public void UnblockAllInteractions() => SetInteractable(true);
+
+        private void SetInteractable(bool value)
+        {
+            _attackButton.GetComponent<Selectable>().interactable = value;
+            _moveButton.GetComponent<Selectable>().interactable = value;
+            _stopButton.GetComponent<Selectable>().interactable = value;
+            _patrolButton.GetComponent<Selectable>().interactable = value;
+            _produceUnitButton.GetComponent<Selectable>().interactable = value;
         }
 
         public void MakeLayout(IEnumerable<ICommandExecutor> commandsExecutors)
@@ -42,6 +60,13 @@ namespace Aivagames.Strategy.UserControlSystem.UI.View
                 var button = buttonGameObject.GetComponent<Button>();
                 button.onClick.AddListener(() => OnClick?.Invoke(currentExecutor));
             }
+        }
+
+        private GameObject GetButtonGameObjectByType(Type executorInstanceType)
+        {
+            return _buttonsByExecutorType
+                .First(type => type.Key.IsAssignableFrom(executorInstanceType))
+                .Value;
         }
 
         public void Clear()
