@@ -1,12 +1,14 @@
-﻿using Aivagames.Strategy.Abstractions;
-using Aivagames.Strategy.UserControlSystem.UI.Model;
+﻿using System;
+using Aivagames.Strategy.Abstractions;
+using UniRx;
 using UnityEngine;
+using Zenject;
 
 namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 {
     public class OutlineSelectorPresenter : MonoBehaviour
     {
-        [SerializeField] private SelectableValue _selectableValue;
+        [Inject] private IObservable<ISelectable> _selectableValue;
 
         private const float UnSelectedOutlineWidth = 0f;
         private const float SelectedOutlineWidth = 5f;
@@ -16,8 +18,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
 
         private void Start()
         {
-            _selectableValue.OnNewValue += OnSelect;
-            OnSelect(_selectableValue.CurrentValue);
+            _selectableValue.Subscribe(OnSelect);
         }
 
         private void OnSelect(ISelectable selected)
@@ -27,6 +28,7 @@ namespace Aivagames.Strategy.UserControlSystem.UI.Presenter
             {
                 return;
             }
+
             _currentSelectable = selected;
             ChangeOutlineWidth(SelectedOutlineWidth);
         }

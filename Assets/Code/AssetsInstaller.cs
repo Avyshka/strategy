@@ -1,3 +1,4 @@
+using System;
 using Aivagames.Strategy.Abstractions;
 using Aivagames.Strategy.UserControlSystem.UI.Model;
 using Aivagames.Strategy.Utils.AssetsInjector;
@@ -24,5 +25,6 @@ public class AssetsInstaller : ScriptableObjectInstaller<AssetsInstaller>
 
         Container.Bind<IAwaitable<IAttackable>>().FromInstance(_attackablesRMB);
         Container.Bind<IAwaitable<Vector3>>().FromInstance(_groundClicksRMB);
+        Container.Bind<IObservable<ISelectable>>().FromInstance(_selectableValue);
     }
 }
