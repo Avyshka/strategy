@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Aivagames.Strategy.Core
 {
-    public class Chomper : MonoBehaviour, ISelectable, IAttackable, IDamageDealer, IUnit
+    public class Chomper : MonoBehaviour, ISelectable, IAttackable, IDamageDealer, IUnit, IAutomaticAttacker
     {
         [SerializeField] private float _maxHealth = 50;
         [SerializeField] private Sprite _icon;
@@ -12,6 +12,7 @@ namespace Aivagames.Strategy.Core
         [SerializeField] private Animator _animator;
         [SerializeField] private StopCommandExecutor _stopCommand;
         [SerializeField] private int _damage = 25;
+        [SerializeField] private float _visionRadius = 8f;
 
         private float _health = 50;
 
@@ -20,7 +21,8 @@ namespace Aivagames.Strategy.Core
         public Transform PivotPoint => _pivotPoint;
         public Sprite Icon => _icon;
         public int Damage => _damage;
-        
+        public float VisionRadius => _visionRadius;
+
         public void ReceiveDamage(int amount)
         {
             if (_health <= 0)
