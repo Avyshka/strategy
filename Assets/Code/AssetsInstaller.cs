@@ -1,5 +1,7 @@
+using Aivagames.Strategy.Abstractions;
 using Aivagames.Strategy.UserControlSystem.UI.Model;
 using Aivagames.Strategy.Utils.AssetsInjector;
+using Code.Utils;
 using UnityEngine;
 using Zenject;
 
@@ -19,5 +21,8 @@ public class AssetsInstaller : ScriptableObjectInstaller<AssetsInstaller>
             _groundClicksRMB,
             _attackablesRMB
         );
+
+        Container.Bind<IAwaitable<IAttackable>>().FromInstance(_attackablesRMB);
+        Container.Bind<IAwaitable<Vector3>>().FromInstance(_groundClicksRMB);
     }
 }
