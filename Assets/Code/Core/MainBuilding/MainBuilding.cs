@@ -13,8 +13,23 @@ namespace Aivagames.Strategy.Core
 
         public float Health => _health;
         public float MaxHealth => _maxHealth;
+
         public Transform PivotPoint => _pivotPoint;
         public Sprite Icon => _icon;
         public Vector3 RallyPoint { get; set; }
+        
+        public void ReceiveDamage(int amount)
+        {
+            if (_health <= 0)
+            {
+                return;
+            }
+
+            _health -= amount;
+            if (_health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

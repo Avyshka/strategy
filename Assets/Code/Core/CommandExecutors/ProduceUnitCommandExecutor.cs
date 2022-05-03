@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Aivagames.Strategy.Core;
 using Aivagames.Strategy.UserControlSystem;
+using Code.Core;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -36,6 +37,8 @@ namespace Aivagames.Strategy.Abstractions
                     Quaternion.identity,
                     _unitParent
                 );
+                var factionMember = instance.GetComponent<FactionMember>();
+                factionMember.SetFaction(GetComponent<FactionMember>().FactionId);
                 var queue = instance.GetComponent<ICommandsQueue>();
                 var mainBuilding = GetComponent<MainBuilding>();
                 queue.EnqueueCommand(new MoveCommand(mainBuilding.RallyPoint));
